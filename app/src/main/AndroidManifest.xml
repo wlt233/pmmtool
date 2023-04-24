@@ -37,7 +37,7 @@
             android:value="30" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Change FeLica PMm of HCE-f" />
+            android:value="Change FeliCa PMm of HCE-f" />
     </application>
 
 </manifest>
