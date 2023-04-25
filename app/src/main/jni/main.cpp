@@ -4,7 +4,8 @@
 
 char buff[30];
 char pmm_str[30];
-char target_pmm[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+//char target_pmm[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+char target_pmm[8] = {0x00, 0xf1, 0x00, 0x00, 0x00, 0x01, 0x43, 0x00};
 
 void *new_func(u_int8_t a1, u_int8_t *a2, int a3) {
     __android_log_print(6, "pmmtool", "hook _Z23nfa_dm_check_set_confighPhb arg0->%x arg1->%x", a1, a2);
@@ -35,13 +36,14 @@ void *new_func(u_int8_t a1, u_int8_t *a2, int a3) {
 }
 
 jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
-    __android_log_print(6, "pmmtool", "In JNI_OnLoad");
+    __android_log_print(6, "pmmtool", "Inside JNI_OnLoad");
     JNIEnv *env = nullptr;
     if (vm->GetEnv((void **) &env, JNI_VERSION_1_6) == JNI_OK) {
         //void *func_addr = DobbySymbolResolver("libnfc-nci.so", "_Z23nfa_dm_check_set_confighPhb");
         void *func_addr = DobbySymbolResolver(NULL, "_Z23nfa_dm_check_set_confighPhb");
         __android_log_print(6, "pmmtool", "_Z23nfa_dm_check_set_confighPhb addr->%x", func_addr);
         DobbyHook(func_addr, (void *) new_func, (void **) &old_func);
+        __android_log_print(6, "pmmtool", "Dobby hooked");
         return JNI_VERSION_1_6;
     }
     return 0;
