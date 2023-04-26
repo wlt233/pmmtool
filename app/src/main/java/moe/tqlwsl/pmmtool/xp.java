@@ -1,10 +1,13 @@
 package moe.tqlwsl.pmmtool;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +20,7 @@ import java.util.List;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -58,18 +62,24 @@ public class xp implements IXposedHookLoadPackage {
                     Object mInitialApplication = XposedHelpers.getObjectField(activityobj, "mInitialApplication");
                     Object mLoadedApk = XposedHelpers.getObjectField(mInitialApplication, "mLoadedApk");
                     mclassloader = (ClassLoader) XposedHelpers.getObjectField(mLoadedApk, "mClassLoader");
+                    //mclassloader = mcontext.getClassLoader();
                     XposedBridge.log("Got classloader");
                     String path = getSoPath();
                     XposedBridge.log("So path = " + path);
                     int version = android.os.Build.VERSION.SDK_INT;
-                    if (!path.equals("")){
-                        XposedBridge.log("Start inject libpmm.so");
-                        if (version >= 28) {
-                            XposedHelpers.callMethod(Runtime.getRuntime(), "nativeLoad", path, mclassloader);
-                        } else {
-                            XposedHelpers.callMethod(Runtime.getRuntime(), "doLoad", path, mclassloader);
+                    try {
+                        if (!path.equals("")) {
+                            XposedBridge.log("Start inject libpmm.so");
+                            if (version >= 28) {
+                                XposedHelpers.callMethod(Runtime.getRuntime(), "nativeLoad", path, mclassloader);
+                            } else {
+                                XposedHelpers.callMethod(Runtime.getRuntime(), "doLoad", path, mclassloader);
+                            }
+                            XposedBridge.log("Injected libpmm.so");
                         }
-                        XposedBridge.log("Injected libpmm.so");
+                    } catch (Exception e) {
+                        XposedBridge.log(e);
+                        e.printStackTrace();
                     }
                 }
             });

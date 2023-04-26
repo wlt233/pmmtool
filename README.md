@@ -2,9 +2,9 @@
 
 An Xposed module to change FeliCa PMm of HCE-F for Android NFC.
 
-**Only tested on Samsung S8 & Android 9**
+**Only tested on Samsung S8 & Android 9 with EDXposed**
 
-Not works on Redmi K40 & K50U
+Not works with LSPosed
 
 ## How it works
 
@@ -21,3 +21,5 @@ also see:
 [OLIET2357/GeneralFelicaSimulator](https://github.com/OLIET2357/GeneralFelicaSimulator)
 
 [OLIET2357/HCEFUnlocker](https://github.com/OLIET2357/HCEFUnlocker)
+
+[【逆向】论安卓NFC模拟felica时如何修改pmm](https://tqlwsl.moe/index.php/archives/2233/)
