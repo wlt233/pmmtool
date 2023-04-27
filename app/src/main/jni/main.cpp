@@ -12,6 +12,9 @@ void *new_func(u_int8_t a1, u_int8_t *a2, int a3) {
     __android_log_print(6, "pmmtool", "hook _Z23nfa_dm_check_set_confighPhb arg0->%x arg1->%x", a1, a2);
 
     // if (a1 == 0x1d) { // hardcoded arg pattern
+    // 40 0a [syscode] [IDm] 53 02 01 00 55 01 01 51 08 [PMm]
+    // if (a1 == 0x1b) { // another type hardcoded arg pattern
+    // 40 12 [syscode] [IDm] [PMm] 53 02 01 00 55 01 01
 
         // handmade hexdump
         for (int i = 0x0; i < 0x10; ++i)
@@ -21,7 +24,7 @@ void *new_func(u_int8_t a1, u_int8_t *a2, int a3) {
             sprintf(buff + i * 3, "%02x ", *(char *)(a2 + 0x10 + i));
         __android_log_print(6, "pmmtool", "[%x]: %s", a2 + 0x10, buff);
 
-        // look for 51 08 (set pmm command)
+        // look for 51 08 (set pmm command) for type 0x1d
         for (int i = 0x0; i < 0x20; ++i) {
             if (*(char *)(a2 + i) == 0x51 && *(char *)(a2 + i + 1) == 0x08) {
 

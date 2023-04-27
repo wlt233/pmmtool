@@ -7,6 +7,7 @@ Tested on:
 - Samsung S8 | Android 9
 - Redmi K50U | Android 12
 - Mi 10 | Android 12
+- Redmi K40 | Android 13
 
 ## How it works
 
