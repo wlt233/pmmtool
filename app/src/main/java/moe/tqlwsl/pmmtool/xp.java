@@ -69,7 +69,7 @@ public class xp implements IXposedHookLoadPackage {
                     int version = android.os.Build.VERSION.SDK_INT;
                     try {
                         if (!path.equals("")) {
-                            XposedBridge.log("Start inject libpmm.so");
+                            XposedBridge.log("Start injecting libpmm.so");
                             if (version >= 28) {
                                 XposedHelpers.callMethod(Runtime.getRuntime(), "nativeLoad", path, mclassloader);
                             } else {
