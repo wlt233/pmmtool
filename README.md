@@ -2,7 +2,12 @@
 
 An Xposed module to change FeliCa PMm of HCE-F for Android NFC.
 
-**Only tested on Samsung S8 & Android 9**
+Tested on:
+
+- Samsung S8 | Android 9
+- Redmi K50U | Android 12
+- Mi 10 | Android 12
+
 ## How it works
 
 Use Xposed to inject Dobby into libnfc-nci.so and hook nfa_dm_check_set_config function.
