@@ -57,12 +57,12 @@ public class xp implements IXposedHookLoadPackage {
                 protected void afterHookedMethod(XC_MethodHook.MethodHookParam param) throws Throwable {
                     super.afterHookedMethod(param);
                     XposedBridge.log("Inside android.nfc.cardemulation.NfcFCardEmulation#isValidSystemCode");
-                    Class activitythreadclass = lpparam.classLoader.loadClass("android.app.ActivityThread");
-                    Object activityobj = XposedHelpers.callStaticMethod(activitythreadclass, "currentActivityThread");
-                    Object mInitialApplication = XposedHelpers.getObjectField(activityobj, "mInitialApplication");
-                    Object mLoadedApk = XposedHelpers.getObjectField(mInitialApplication, "mLoadedApk");
-                    mclassloader = (ClassLoader) XposedHelpers.getObjectField(mLoadedApk, "mClassLoader");
-                    //mclassloader = mcontext.getClassLoader();
+//                    Class activitythreadclass = lpparam.classLoader.loadClass("android.app.ActivityThread");
+//                    Object activityobj = XposedHelpers.callStaticMethod(activitythreadclass, "currentActivityThread");
+//                    Object mInitialApplication = XposedHelpers.getObjectField(activityobj, "mInitialApplication");
+//                    Object mLoadedApk = XposedHelpers.getObjectField(mInitialApplication, "mLoadedApk");
+//                    mclassloader = (ClassLoader) XposedHelpers.getObjectField(mLoadedApk, "mClassLoader");
+                    mclassloader = mcontext.getClassLoader();
                     XposedBridge.log("Got classloader");
                     String path = getSoPath();
                     XposedBridge.log("So path = " + path);
